@@ -1,0 +1,29 @@
+//Express built-in or default error-handling middleware function is added at the end of the middleware function stack.
+//If you pass an error to next() and you do not handle it in a custom error handler, it will be handled by the built-in error handler.
+
+//When an error is written, the following information is added to the response like below - 
+
+app.all('*', (req, res, next) => {
+  // res.status(200).json({
+  //   status: 'fail',
+  //   message: `Can't find ${req.originalUrl} on this server`,
+  // });
+
+  const err = new Error(`Can't find ${req.originalUrl} on this server`);
+  err.status = 'fail';
+  err.statusCode = 404;
+
+  next(err);  //If you call next() with an error after you have started writing the response, the Express default error handler closes the connection and fails the request.
+});
+
+
+///////ERROR HANDLING MIDDLEWARE////////
+app.use((err, req, res, next) => {
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || 'error';
+
+  res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
+  });
+});
