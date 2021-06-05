@@ -1,0 +1,10 @@
+//Use to resolve Asynchronous unhandled rejections:
+
+process.on('unhandledRejection', (err) => {
+  console.log('UNHANDLER REJECTION! 💥 Shutting down...');
+  console.log(err.name, err.message);
+
+  server.close(() => {
+    process.exit(1);
+  });
+});
