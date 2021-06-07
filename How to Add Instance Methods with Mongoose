@@ -1,0 +1,25 @@
+
+//Creating Instance Method
+userSchema.methods.getFullName = function() {
+  return this.firstName + this.lastName
+}
+
+//Using Instance Method
+let model = new UserModel({
+  firstName: 'Alfred',
+  lastName: 'Tompkins'
+})
+
+let fullName = model.getFullName()
+console.log(fullName) // Result: Alfred Tompkins
+
+////////////ANOTHER EXAMPLE/////////////
+//Creating Instance method: available throughout the model
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+
