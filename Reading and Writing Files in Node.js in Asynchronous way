@@ -1,0 +1,15 @@
+//Reading and Writing files in Asynchronous way
+
+fs.readFile('./txt/start.txt', 'utf-8', (err, data1)=>{
+    if(err) return console.log('ERROR! 💥')
+    console.log(data1)
+
+    fs.readFile('./txt/append.txt', 'utf-8', (err, data2)=>{
+        console.log(data2);
+        
+        fs.writeFile('/txt.final.txt', `${data2}\n${data3}`, 'utf-8', (err)=>{
+        console.log('Your data has been written! 😀')
+    })
+
+    })
+})
